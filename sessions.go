@@ -112,13 +112,11 @@ func (ss *Sessions) ServeHTTP(
 	ss.store.Store(w, sid, s)
 }
 
-// GetSession return Session
-func GetSession(r *http.Request) (Session, bool) {
-	s := r.Context().Value(CtxKeySession)
-
-	if s == nil {
-		return nil, false
+// GetSession Get session
+func GetSession(r *http.Request) Session {
+	if s := r.Context().Value(CtxKeySession); s != nil {
+		return s.(Session)
 	}
 
-	return s.(Session), true
+	return nil
 }
