@@ -50,7 +50,7 @@ func NewMemoryStore(maxAge int) *MemoryStore {
 }
 
 // Delete Session
-func (ms *MemoryStore) Delete(rw http.ResponseWriter, sid string) {
+func (ms *MemoryStore) Delete(w http.ResponseWriter, sid string) {
 	ms.Map.Delete(sid)
 }
 
@@ -73,7 +73,7 @@ func (ms *MemoryStore) LoadOrCreate(
 
 // Store Session
 func (ms *MemoryStore) Store(
-	rw http.ResponseWriter, sid string, s Session) {
+	w http.ResponseWriter, sid string, s Session) {
 	ms.Map.Store(sid, s)
 }
 

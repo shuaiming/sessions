@@ -91,7 +91,7 @@ func (ss *Sessions) getOrCreateSID(r *http.Request) string {
 }
 
 func (ss *Sessions) ServeHTTP(
-	rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+	w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 
 	sid := ss.getOrCreateSID(r)
 	s, _ := ss.store.LoadOrCreate(r, sid)
@@ -104,12 +104,12 @@ func (ss *Sessions) ServeHTTP(
 		Path:     "/",
 	}
 
-	http.SetCookie(rw, &cookie)
+	http.SetCookie(w, &cookie)
 
 	ctx := context.WithValue(r.Context(), CtxKeySession, s)
-	next(rw, r.WithContext(ctx))
+	next(w, r.WithContext(ctx))
 
-	ss.store.Store(rw, sid, s)
+	ss.store.Store(w, sid, s)
 }
 
 // GetSession return Session

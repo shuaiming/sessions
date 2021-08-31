@@ -67,7 +67,7 @@ func NewFilesystemStore(maxAge int, dir string) *FilesystemStore {
 }
 
 // Delete Session
-func (ms *FilesystemStore) Delete(rw http.ResponseWriter, sid string) {
+func (ms *FilesystemStore) Delete(w http.ResponseWriter, sid string) {
 	path := ms.sid2path(sid)
 	if _, err := os.Stat(path); err == nil {
 		os.Remove(path)
@@ -102,7 +102,7 @@ func (ms *FilesystemStore) LoadOrCreate(
 
 // Store Session
 func (ms *FilesystemStore) Store(
-	rw http.ResponseWriter, sid string, s Session) {
+	w http.ResponseWriter, sid string, s Session) {
 	// FIXME: dirty data may stored
 
 	path := ms.sid2path(sid)
