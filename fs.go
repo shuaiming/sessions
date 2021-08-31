@@ -111,15 +111,15 @@ func (ms *FilesystemStore) Store(
 		return
 	}
 
-	var w bytes.Buffer
-	enc := gob.NewEncoder(&w)
+	var b bytes.Buffer
+	enc := gob.NewEncoder(&b)
 
 	if err := enc.Encode(s.(*FileSession)); err != nil {
 		log.Println(err)
 		return
 	}
 
-	if err := ioutil.WriteFile(path, w.Bytes(), 0640); err != nil {
+	if err := ioutil.WriteFile(path, b.Bytes(), 0640); err != nil {
 		log.Println(err)
 	}
 }
